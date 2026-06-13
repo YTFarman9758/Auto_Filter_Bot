@@ -33,6 +33,9 @@ pyshorteners
 colorama
 fuzzywuzzy
 python-Levenshtein==0.27.1
+openai-whisper
+torch
+ffmpeg-python
 
 # Git-based Packages
 git+https://github.com/NBBotz/IMDBKit.git@main
