@@ -12,7 +12,6 @@ aiohttp
 telegraph
 pymediainfo-pyrofork
 
-# Other tools
 opencv-python-headless==4.8.1.78
 python-dotenv==0.21.1
 PyLeaves==1.0.2
@@ -33,10 +32,9 @@ pyshorteners
 colorama
 fuzzywuzzy
 python-Levenshtein==0.27.1
-openai-whisper
-torch
-ffmpeg-python
 
-# Git-based Packages
+openai-whisper
+torch>=2.2.0
+
 git+https://github.com/NBBotz/IMDBKit.git@main
 git+https://github.com/DreamXBotz/cinemagoer
