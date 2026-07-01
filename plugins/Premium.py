@@ -264,4 +264,49 @@ async def successful_premium_payment(client, message):
         print(f"Error Processing Premium Payment: {e}")
         await message.reply("✅ Thank You For Your Payment! (Error Logging Details)")
 
+async def add_premium(client, user_id: int, time: str = "1 month"):
+    try:
+        seconds = await get_seconds(time)
 
+        if seconds <= 0:
+            return False
+
+        expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
+
+        user_data = {
+            "id": user_id,
+            "expiry_time": expiry_time
+        }
+
+        await db.update_user(user_data)
+
+        data = await db.get_user(user_id)
+        expiry = data.get("expiry_time")
+
+        expiry_str = expiry.astimezone(
+            pytz.timezone("Asia/Kolkata")
+        ).strftime("%d-%m-%Y | %I:%M:%S %p")
+
+        user = await client.get_users(user_id)
+
+        await client.send_message(
+            user_id,
+            f"🎉 Congratulations {user.mention}!\n\n"
+            f"🎁 You have received **{time} Premium** for completing **100 Referral Points**.\n\n"
+            f"⌛ Expiry: {expiry_str}"
+        )
+
+        await client.send_message(
+            PREMIUM_LOGS,
+            f"#Referral_Premium\n\n"
+            f"👤 User : {user.mention}\n"
+            f"🆔 ID : `{user_id}`\n"
+            f"🎁 Reward : {time}\n"
+            f"⌛ Expiry : {expiry_str}"
+        )
+
+        return True
+
+    except Exception as e:
+        print(f"Referral Premium Error: {e}")
+        return False
