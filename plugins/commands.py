@@ -11,6 +11,7 @@ from .pmfilter import auto_filter
 from Script import script
 from datetime import datetime
 from database.refer import referdb
+from plugins.Premium import add_premium
 from database.config_db import mdb
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, ReplyKeyboardMarkup
 from pyrogram import Client, filters, enums
