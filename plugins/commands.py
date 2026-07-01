@@ -186,9 +186,9 @@ async def start(client, message):
                 await message.reply_text("‼️ Yᴏᴜ Hᴀᴠᴇ Bᴇᴇɴ Aʟʀᴇᴀᴅʏ Iɴᴠɪᴛᴇᴅ ᴏʀ Jᴏɪɴᴇᴅ")
                 return 
             try:
-    uss = await client.get_users(user_id)
-except Exception:
-    return
+            uss = await client.get_users(user_id)
+        except Exception:
+            return
 
 referdb.add_user(message.from_user.id)
 fromuse = referdb.get_refer_points(user_id) + 10
