@@ -16,24 +16,34 @@ class UserTracker:
 
     def add_user(self, user_id):
         if not self.is_user_in_list(user_id):
-            self.user_collection.insert_one({'user_id': user_id})
+            self.user_collection.insert_one({"user_id": user_id})
 
     def remove_user(self, user_id):
-        self.user_collection.delete_one({'user_id': user_id})
+        self.user_collection.delete_one({"user_id": user_id})
 
     def is_user_in_list(self, user_id):
-        return bool(self.user_collection.find_one({'user_id': user_id}))
+        return bool(self.user_collection.find_one({"user_id": user_id}))
 
+    # Add referral points
     def add_refer_points(self, user_id: int, points: int):
         self.refer_collection.update_one(
-            {'user_id': user_id},
-            {'$set': {'points': points}},
+            {"user_id": user_id},
+            {"$inc": {"points": points}},
             upsert=True
         )
 
+    # Get current referral points
     def get_refer_points(self, user_id: int):
-        user = self.refer_collection.find_one({'user_id': user_id})
-        return user.get('points') if user else 0
+        user = self.refer_collection.find_one({"user_id": user_id})
+        return user.get("points", 0) if user else 0
+
+    # Remove referral points
+    def remove_points(self, user_id: int, points: int):
+        self.refer_collection.update_one(
+            {"user_id": user_id},
+            {"$inc": {"points": -points}},
+            upsert=True
+        )
 
 
 referdb = UserTracker()
