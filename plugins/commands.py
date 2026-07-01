@@ -186,17 +186,18 @@ async def start(client, message):
                 await message.reply_text("‼️ Yᴏᴜ Hᴀᴠᴇ Bᴇᴇɴ Aʟʀᴇᴀᴅʏ Iɴᴠɪᴛᴇᴅ ᴏʀ Jᴏɪɴᴇᴅ")
                 return 
             try:
-                uss = await client.get_users(user_id)
-            except Exception:
-                return 	    
-            referdb.add_user(message.from_user.id)
+    uss = await client.get_users(user_id)
+except Exception:
+    return
+
+referdb.add_user(message.from_user.id)
 fromuse = referdb.get_refer_points(user_id) + 10
 
 if fromuse >= 100:
     referdb.remove_points(user_id, 100)
 
     await message.reply_text(
-        f"🎉 Congratulations! You won 1 Month Premium because you invited 10 users."
+        "🎉 Congratulations! You won 1 Month Premium because you invited 10 users."
     )
 
     await client.send_message(
@@ -209,7 +210,7 @@ if fromuse >= 100:
     if ok:
         await client.send_message(
             chat_id=user_id,
-            text=f"<b>Hey {uss.mention}\n\nYou got 1 Month Premium Subscription by inviting 10 users! 🎉</b>"
+            text=f"<b>Hey {uss.mention}\n\nYou got 1 Month Premium Subscription by inviting 10 users 🎉</b>"
         )
 
         for admin in ADMINS:
@@ -217,6 +218,7 @@ if fromuse >= 100:
                 chat_id=admin,
                 text=f"✅ {uss.mention} ({user_id}) received 1 Month Premium via Referral."
             )
+
 else:
     referdb.add_refer_points(user_id, fromuse)
 
@@ -228,6 +230,8 @@ else:
         user_id,
         f"🎉 Congratulations! You won 10 referral points.\n\nCurrent Points: {fromuse}/100"
     )
+
+return
 
 return
 
