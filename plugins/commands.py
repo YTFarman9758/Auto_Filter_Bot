@@ -20,6 +20,7 @@ from database.ia_filterdb import Media, Media2, get_file_details, unpack_new_fil
 from database.users_chats_db import db
 from info import *
 from utils import get_settings, save_group_settings, is_subscribed, is_req_subscribed, get_size, get_shortlink, is_check_admin, temp, get_readable_time, get_time, generate_settings_text, log_error, clean_filename, get_random_mix_id
+from dreamxbotz.gate import wrap_with_gate
 import time
 
 logging.basicConfig(level=logging.ERROR)
@@ -310,6 +311,7 @@ async def start(client, message):
                         verify = await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=sendall_{user_id}_{verify_id}_{file_id}", grp_id, is_second_shortener, is_third_shortener)
                     else:
                         verify = await get_shortlink(f"https://telegram.me/{temp.U_NAME}?start=notcopy_{user_id}_{verify_id}_{file_id}", grp_id, is_second_shortener, is_third_shortener)
+                    verify = await wrap_with_gate(verify)
                     if is_third_shortener:
                         howtodownload = settings.get('tutorial_3', TUTORIAL_3)
                     else:
