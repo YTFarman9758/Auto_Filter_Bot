@@ -101,6 +101,13 @@ IS_VERIFY = is_enabled('IS_VERIFY', True)  # Verification On (True) / Off (False
 LOG_VR_CHANNEL = int(environ.get('LOG_VR_CHANNEL', '-1002332166273')) #Verification Channel Id 
 LOG_API_CHANNEL = int(environ.get('LOG_API_CHANNEL', '-1002332166273')) #If Anyone Set Your Bot In Any Group And Set Shortner In That Group Then In This Channel The All Details Come
 VERIFY_IMG = environ.get("VERIFY_IMG", "https://telegra.ph/file/9ecc5d6e4df5b83424896.jpg")
+# Gate protection — connects to your ALREADY-DEPLOYED protection bot's
+# API. Every shortlink this bot generates gets wrapped through it first:
+#   user -> your protection bot's gate (bot-check) -> the shortener link
+GATE_ENABLED = is_enabled(environ.get("GATE_ENABLED", "True"), True)
+GATE_API_URL = environ.get("GATE_API_URL", "https://shortner-protection-production-54ddd1.up.railway.app")   # e.g. https://your-protection-bot.up.railway.app
+GATE_API_KEY = environ.get("GATE_API_KEY", "M2MGSxfApLR4Gjv4M5ZaR7iiyxHHQYJ9")   # must match the protection bot's own GATE_API_KEY
+
 
 TUTORIAL = environ.get("TUTORIAL", "https://t.me/nkdcrazy")   # Tutorial link for verification
 TUTORIAL_2 = environ.get("TUTORIAL_2", "https://t.me/nkdcrazy")   # Second tutorial link for verification
